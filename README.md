@@ -17,13 +17,13 @@ Nếu cùng địa chỉ mạng thì máy gửi sẽ tìm trong bảng MAC tabl
 ### DEMO
 ```sh
 Máy A có địa chi IP là :` 192.168.1.11 `  địa chỉ MAC : ` 00-0C-29-F3-01-12`
-Máy B có địa chỉ IP là : 192.168.1.20
+Máy B có địa chỉ IP là : 192.168.1.19
 Máy A muốn tìm địa chỉ MAC của máy B
 Trên máy A ta mở cmd sử dụng câu lệnh:
 `arp –a`
 Ta thấy hiện tại trong MAC table của máy A chưa có địa chỉ MAC của máy B
 Ta thử ping đến địa chỉ IP của máy B đã biết bằng cách gõ:
-`Ping 192.168.1.20`
+`Ping 192.168.1.19`
 ```
 <img src="http://i.imgur.com/Yx2PoEC.png">
 Và kết quả thu được là đã có địa chỉ MAC của máy B trong MAC table.
@@ -39,7 +39,7 @@ TIếp theo tại máy B:
 
 `sudo tcpdump –vnes0 –I eth0 arp` 
 
-sau khi ở máy A tôi thực hiên việc ping đến địa chỉ IP của máy B chúng ta sẽ thấy . Đầu tiên, máy A phát ra một gói tin ARP request (dạng broadcast) trên mạng yêu cầu tìm MAC của máy nào có IP là `192.168.1.20` vì là gói tin broadcast nên các máy trên mạng sẽ nhận gói tin này và xử lý. Mỗi máy sẽ kiểm tra xem địa chỉ `192.168.1.20` có phải là IP của mình không. Nếu ko thì nó loại gói tin này. 
+sau khi ở máy A tôi thực hiên việc ping đến địa chỉ IP của máy B chúng ta sẽ thấy . Đầu tiên, máy A phát ra một gói tin ARP request (dạng broadcast) trên mạng yêu cầu tìm MAC của máy nào có IP là `192.168.1.19` vì là gói tin broadcast nên các máy trên mạng sẽ nhận gói tin này và xử lý. Mỗi máy sẽ kiểm tra xem địa chỉ `192.168.1.19` có phải là IP của mình không. Nếu ko thì nó loại gói tin này. 
 
 Trong trường hợp này máy B nhận thấy đây đúng là địa chỉ IP của máy mình vì vậy nó sẽ lấy địa chỉ MAC của nó và gửi gói tin ARP reply (dạng unicast) về cho máy A. Đồng thời máy B cũng cập nhật MAC table địa chỉ IP và MAC của máy A vào bảng MAC table của mình để giảm bớt thời gian xử lý cho các lần sau.
 Lúc này máy A đã có địa chỉ MAC của máy B. Nó sẽ lưu và MAC table của nó.
